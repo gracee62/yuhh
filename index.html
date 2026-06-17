@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Garima ❤️</title>
+    <style>
+        /* --- Google Fonts --- */
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap');
+
+        /* --- Custom Properties --- */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #e8eaf6 100%);
+            --glass-bg: rgba(255, 255, 255, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --text-primary: #4a148c;
+            --text-secondary: #6a1b9a;
+            --accent-pink: #ff80ab;
+            --accent-glow: rgba(255, 128, 171, 0.4);
+        }
+
+        /* --- Reset & Base Styles --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        /* --- Canvas Background --- */
+        #animationCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- Main Glassmorphism Card --- */
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            box-shadow: 0 8px 32px 0 rgba(106, 27, 154, 0.1);
+            text-align: center;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInCard 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* --- Decorative Image / Avatar --- */
+        .avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* --- Typography --- */
+        .romantic-heading {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent-pink);
+            margin-bottom: 2.5rem;
+        }
+
+        /* --- Letter Content --- */
+        .apology-letter {
+            text-align: left;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: #333;
+            font-weight: 300;
+        }
+
+        .letter-paragraph {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInText 0.8s ease forwards;
+        }
+
+        /* Staggered text animations */
+        .letter-paragraph:nth-child(1) { animation-delay: 0.4s; }
+        .letter-paragraph:nth-child(2) { animation-delay: 0.8s; }
+        .letter-paragraph:nth-child(3) { animation-delay: 1.2s; }
+        .letter-paragraph:nth-child(4) { animation-delay: 1.6s; }
+
+        .highlight {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        /* --- Interactive Button & Hidden Message --- */
+        .cta-container {
+            margin-top: 2.5rem;
+            opacity: 0;
+            animation: fadeInText 0.8s ease forwards;
+            animation-delay: 2s;
+        }
+
+        .primary-btn {
+            background: white;
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
+            padding: 0.85rem 2.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+            outline: none;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+            background: var(--text-secondary);
+            color: white;
+            box-shadow: 0 8px 20px var(--accent-glow);
+        }
+
+        .hidden-message {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-top: 0;
+            line-height: 1.6;
+        }
+
+        .hidden-message.reveal {
+            max-height: 150px;
+            opacity: 1;
+            margin-top: 2rem;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInCard {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInText {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem 1.25rem;
+            }
+            .romantic-heading {
+                font-size: 2.8rem;
+            }
+            .subtitle {
+                font-size: 0.95rem;
+                margin-bottom: 2rem;
+            }
+            .apology-letter {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="animationCanvas"></canvas>
+
+    <main class="container">
+        <div class="avatar-container">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100%' height='100%' fill='%23ff80ab'/><path d='M50 30 C35 10, 10 25, 50 75 C90 25, 65 10, 50 30 Z' fill='%23ffffff'/></svg>" alt="Garima" class="avatar">
+        </div>
+
+        <h1 class="romantic-heading">Sorry Garima ❤️</h1>
+        <p class="subtitle">I am truly sorry</p>
+
+        <article class="apology-letter">
+            <p class="letter-paragraph">
+                I’ve spent the last few hours thinking over everything, and I realize how deeply my actions must have hurt you. More than anything, I want to sincerely apologize for <span class="highlight">blocking you</span>. 
+            </p>
+            <p class="letter-paragraph">
+                Reacting that way was completely wrong, immature, and unfair to what we share. Instead of shutting down the conversation and creating distance, I should have stayed, listened, and worked through things together with you. 
+            </p>
+            <p class="letter-paragraph">
+                I promise you that I am committed to improving how I communicate. I want to build a space where we handle difficult moments with patience, openness, and absolute honesty, rather than running away from them.
+            </p>
+            <p class="letter-paragraph">
+                Please take all the time you need. I value you and your presence in my life more than words can fully capture, and I hope you can find it in your heart to gently forgive me.
+            </p>
+        </article>
+
+        <div class="cta-container">
+            <button class="primary-btn" id="revealBtn" onclick="revealMessage()">Forgive Me ❤️</button>
+            <div class="hidden-message" id="secretMessage">
+                Thank you for reading this. Whenever you're ready, I'm right here to listen to you. No rush, no pressure. ✨
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // --- Reveal Hidden Message Logic ---
+        function revealMessage() {
+            const message = document.getElementById('secretMessage');
+            const button = document.getElementById('revealBtn');
+            
+            message.classList.toggle('reveal');
+            
+            if(message.classList.contains('reveal')) {
+                button.textContent = "Thank you ✨";
+                button.style.background = "rgba(106, 27, 154, 0.1)";
+                button.style.color = "var(--text-secondary)";
+            }
+        }
+
+        // --- HTML5 Canvas Floating Hearts & Sparkles ---
+        const canvas = document.getElementById('animationCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let elements = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class ElegantElement {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 100;
+                this.size = Math.random() * 12 + 6;
+                this.speedX = Math.sin(Math.random() * 2) * 0.5;
+                this.speedY = -(Math.random() * 0.8 + 0.4);
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.type = Math.random() > 0.4 ? 'heart' : 'sparkle';
+                this.rotation = Math.random() * Math.PI;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.01;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                ctx.globalAlpha = this.opacity;
+
+                if (this.type === 'heart') {
+                    ctx.fillStyle = '#ff80ab';
+                    ctx.beginPath();
+                    // Custom micro-heart shape rendering
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(-this.size/2, -this.size/2, -this.size, -this.size/4, -this.size, this.size/4);
+                    ctx.bezierCurveTo(-this.size, this.size*0.7, -this.size/4, this.size*0.9, 0, this.size*1.3);
+                    ctx.bezierCurveTo(this.size/4, this.size*0.9, this.size, this.size*0.7, this.size, this.size/4);
+                    ctx.bezierCurveTo(this.size, -this.size/4, this.size/2, -this.size/2, 0, 0);
+                    ctx.closePath();
+                    ctx.fill();
+                } else {
+                    // Soft glowing sparkle star
+                    ctx.fillStyle = '#ffffff';
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#fff';
+                    ctx.beginPath();
+                    for (let i = 0; i < 4; i++) {
+                        ctx.lineTo(0, -this.size);
+                        ctx.rotate(Math.PI / 2);
+                        ctx.lineTo(0, -this.size / 3);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.rotation += this.rotationSpeed;
+
+                // Subtle sway effect
+                this.speedX += Math.sin(this.y / 30) * 0.01;
+
+                // Slowly fade out as it reaches the top
+                if (this.y < canvas.height * 0.2) {
+                    this.opacity -= 0.005;
+                }
+            }
+        }
+
+        function init() {
+            // Populate initially with fewer particles for a cleaner aesthetic
+            const initialCount = Math.min(Math.floor(window.innerWidth / 30), 40);
+            for (let i = 0; i < initialCount; i++) {
+                let el = new ElegantElement();
+                el.y = Math.random() * canvas.height; // scatter across screen initially
+                elements.push(el);
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].update();
+                elements[i].draw();
+
+                if (elements[i].opacity <= 0 || elements[i].y < -20) {
+                    elements.splice(i, 1);
+                    i--;
+                }
+            }
+
+            // Continuously spawn fresh elements gracefully
+            if (elements.length < 40 && Math.random() < 0.03) {
+                elements.push(new ElegantElement());
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
+
+```
